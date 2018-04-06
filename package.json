@@ -10,8 +10,8 @@
     "type": "git",
     "url": "git+https://github.com/davidlatuno/liri-node-app.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["Twitter", "Spotify", "OMDB"],
+  "author": "David Latuno",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/davidlatuno/liri-node-app/issues"
