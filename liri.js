@@ -6,6 +6,7 @@ var request = require("request");
 var apiKeys = require("./keys.js");
 var spotify = new Spotify(apiKeys.spotify);
 var client = new Twitter(apiKeys.twitter);
+var fs = require("fs");
 
 // User command keyword variable
 var command = process.argv[2];
@@ -35,6 +36,9 @@ switch (command) {
 
     case "my-tweets":
         userTweet();
+        break;
+    case "do-what-it-says":
+        dwis();
         break;
 }
 
@@ -112,4 +116,29 @@ function userTweet() {
             console.log("");
         }
     });
+}
+
+// Do what it says input
+function dwis() {
+    fs.readFile("random.txt", "utf8", function(error, data) {
+        if (error) {
+            return console.log(error);
+        }
+        var dataArr = data.split(",");
+        command = dataArr[0];
+        searchName = dataArr[1];
+        switch (command) {
+            case "spotify-this-song":
+                userSpotify();
+                break;
+        
+            case "movie-this":
+                userMovie();
+                break;
+        
+            case "my-tweets":
+                userTweet();
+                break;
+        }
+    })
 }
