@@ -14,24 +14,27 @@ var params = {
 }
 
 var movieName = '';
-for (var i = 2; i < process.argv.length; i++) {
+for (var i = 3; i < process.argv.length; i++) {
     movieName += (process.argv[i]) + " ";
 }
 var queryUrl = "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=trilogy";
 
-request(queryUrl, function(error, response, body) {
-    if (!error && response.statusCode === 200) {
-        console.log("Title: " + JSON.parse(body).Title);
-        console.log("Year: " + JSON.parse(body).Year);
-        console.log(`${JSON.parse(body).Ratings[0].Source}: ${JSON.parse(body).Ratings[0].Value}`);
-        console.log(`${JSON.parse(body).Ratings[1].Source}: ${JSON.parse(body).Ratings[1].Value}`);
-        console.log("Country: " + JSON.parse(body).Country);
-        console.log("Language(s): " + JSON.parse(body).Language);
-        console.log("Plot: " + JSON.parse(body).Plot);
-        console.log("Actors: " + JSON.parse(body).Actors);
-        
-    }
-})
+if (command === "movie-this") {
+    request(queryUrl, function (error, response, body) {
+        if (!error && response.statusCode === 200) {
+            console.log("Title: " + JSON.parse(body).Title);
+            console.log("Year: " + JSON.parse(body).Year);
+            console.log(`${JSON.parse(body).Ratings[0].Source}: ${JSON.parse(body).Ratings[0].Value}`);
+            console.log(`${JSON.parse(body).Ratings[1].Source}: ${JSON.parse(body).Ratings[1].Value}`);
+            console.log("Country: " + JSON.parse(body).Country);
+            console.log("Language(s): " + JSON.parse(body).Language);
+            console.log("Plot: " + JSON.parse(body).Plot);
+            console.log("Actors: " + JSON.parse(body).Actors);
+
+        }
+    })
+}
+
 
 
 // spotify.request('https://api.spotify.com/v1/search?q=All+the+Small+Things&type=track&limit=20').then(function(err, data) {
