@@ -124,7 +124,7 @@ function dwis() {
         if (error) {
             return console.log(error);
         }
-        var dataArr = data.split(",");
+        var dataArr = data.split(", ");
         command = dataArr[0];
         searchName = dataArr[1];
         switch (command) {
