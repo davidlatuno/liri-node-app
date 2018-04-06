@@ -1,3 +1,4 @@
+// Initial config and node require
 require("dotenv").config();
 var Twitter = require("twitter");
 var Spotify = require("node-spotify-api");
@@ -6,19 +7,32 @@ var apiKeys = require("./keys.js");
 var spotify = new Spotify(apiKeys.spotify);
 var client = new Twitter(apiKeys.twitter);
 
+// User command keyword variable
 var command = process.argv[2];
 
+// Twitter search parameters
 var params = {
     q: 'davidlatuno',
     count: 20
 }
 
+// Movie name code to handle multiple words
 var movieName = '';
 for (var i = 3; i < process.argv.length; i++) {
     movieName += (process.argv[i]) + " ";
 }
+// OMDB url
 var queryUrl = "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=trilogy";
 
+// Spotify Request
+spotify.request("https://api.spotify.com/v1/tracks/7yCPwWs66K8Ba5lFuU2bcx").then(function(err, resp, body) {
+    if (err) {
+        return console.log (err);
+    }
+    console.log(body);
+})
+
+// OMDB Request
 if (command === "movie-this") {
     request(queryUrl, function (error, response, body) {
         if (!error && response.statusCode === 200) {
@@ -35,17 +49,8 @@ if (command === "movie-this") {
     })
 }
 
-
-
-// spotify.request('https://api.spotify.com/v1/search?q=All+the+Small+Things&type=track&limit=20').then(function(err, data) {
-//     if (err) {
-//         return console.log(err);
-//     }
-//     console.log(data);
-// })
-
+// Twitter Request
 if (command === "my-tweets") {
-
     client.get('search/tweets', params, function searchedData(err, data, response) {
         if (err) {
             return console.log(err);
@@ -56,7 +61,5 @@ if (command === "my-tweets") {
             console.log(data.statuses[i].created_at);
             console.log("");
         }
-
-
     });
 }
