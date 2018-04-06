@@ -26,6 +26,7 @@ var queryUrl = "http://www.omdbapi.com/?t=" + searchName + "&y=&plot=short&apike
 
 // Spotify Request
 if (command === "spotify-this-song") {
+    // Empty User input
     if (searchName === "") {
         spotify
             .request('https://api.spotify.com/v1/tracks/3DYVWvPh3kGwPasp7yjahc')
@@ -39,6 +40,7 @@ if (command === "spotify-this-song") {
                 console.error('Error occurred: ' + err);
             });
     } else {
+        // Handle User Input
         spotify.search({ type: 'track', query: searchName }, function (err, data) {
             if (err) {
                 return console.log('Error occurred: ' + err);
@@ -53,19 +55,34 @@ if (command === "spotify-this-song") {
 
 // OMDB Request
 if (command === "movie-this") {
-    request(queryUrl, function (error, response, body) {
-        if (!error && response.statusCode === 200) {
-            console.log("Title: " + JSON.parse(body).Title);
-            console.log("Year: " + JSON.parse(body).Year);
-            console.log(`${JSON.parse(body).Ratings[0].Source}: ${JSON.parse(body).Ratings[0].Value}`);
-            console.log(`${JSON.parse(body).Ratings[1].Source}: ${JSON.parse(body).Ratings[1].Value}`);
-            console.log("Country: " + JSON.parse(body).Country);
-            console.log("Language(s): " + JSON.parse(body).Language);
-            console.log("Plot: " + JSON.parse(body).Plot);
-            console.log("Actors: " + JSON.parse(body).Actors);
-
-        }
-    })
+    // Empty User Input
+    if (searchName === "") {
+        request("http://www.omdbapi.com/?t=Mr. Nobody&y=&plot=short&apikey=trilogy", function (error, response, body) {
+            if (!error && response.statusCode === 200) {
+                console.log("Title: " + JSON.parse(body).Title);
+                console.log("Year: " + JSON.parse(body).Year);
+                console.log(`${JSON.parse(body).Ratings[0].Source}: ${JSON.parse(body).Ratings[0].Value}`);
+                console.log(`${JSON.parse(body).Ratings[1].Source}: ${JSON.parse(body).Ratings[1].Value}`);
+                console.log("Country: " + JSON.parse(body).Country);
+                console.log("Language(s): " + JSON.parse(body).Language);
+                console.log("Plot: " + JSON.parse(body).Plot);
+                console.log("Actors: " + JSON.parse(body).Actors);
+            }
+        })
+    } else {
+        request(queryUrl, function (error, response, body) {
+            if (!error && response.statusCode === 200) {
+                console.log("Title: " + JSON.parse(body).Title);
+                console.log("Year: " + JSON.parse(body).Year);
+                console.log(`${JSON.parse(body).Ratings[0].Source}: ${JSON.parse(body).Ratings[0].Value}`);
+                console.log(`${JSON.parse(body).Ratings[1].Source}: ${JSON.parse(body).Ratings[1].Value}`);
+                console.log("Country: " + JSON.parse(body).Country);
+                console.log("Language(s): " + JSON.parse(body).Language);
+                console.log("Plot: " + JSON.parse(body).Plot);
+                console.log("Actors: " + JSON.parse(body).Actors);
+            }
+        })
+    }
 }
 
 // Twitter Request
