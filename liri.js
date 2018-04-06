@@ -17,23 +17,25 @@ var params = {
 }
 
 // Movie name code to handle multiple words
-var movieName = '';
+var searchName = '';
 for (var i = 3; i < process.argv.length; i++) {
-    movieName += (process.argv[i]) + " ";
+    searchName += (process.argv[i]) + " ";
 }
 // OMDB url
-var queryUrl = "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=trilogy";
+var queryUrl = "http://www.omdbapi.com/?t=" + searchName + "&y=&plot=short&apikey=trilogy";
 
 // Spotify Request
-spotify.search({ type: 'track', query: 'All the Small Things' }, function (err, data) {
-    if (err) {
-        return console.log('Error occurred: ' + err);
-    }
-    console.log("Artist(s): " + data.tracks.items[0].artists[0].name);
-    console.log("Song Name: " + data.tracks.items[0].name);
-    console.log("Preview Link: " + data.tracks.items[0].external_urls.spotify);
-    console.log("Album from: " + data.tracks.items[0].album.name);
-});
+if (command === "spotify-this-song") {
+    spotify.search({ type: 'track', query: searchName }, function (err, data) {
+        if (err) {
+            return console.log('Error occurred: ' + err);
+        }
+        console.log("Artist(s): " + data.tracks.items[0].artists[0].name);
+        console.log("Song Name: " + data.tracks.items[0].name);
+        console.log("Preview Link: " + data.tracks.items[0].external_urls.spotify);
+        console.log("Album from: " + data.tracks.items[0].album.name);
+    });
+}
 
 // OMDB Request
 if (command === "movie-this") {
