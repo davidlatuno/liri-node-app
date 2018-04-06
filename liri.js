@@ -22,8 +22,6 @@ var searchName = '';
 for (var i = 3; i < process.argv.length; i++) {
     searchName += (process.argv[i]) + " ";
 }
-// OMDB url
-var queryUrl = "http://www.omdbapi.com/?t=" + searchName + "&y=&plot=short&apikey=trilogy";
 
 switch (command) {
     case "spotify-this-song":
@@ -37,6 +35,7 @@ switch (command) {
     case "my-tweets":
         userTweet();
         break;
+
     case "do-what-it-says":
         dwis();
         break;
@@ -73,6 +72,8 @@ function userSpotify() {
 
 // OMDB Request
 function userMovie() {
+    // OMDB url
+    var queryUrl = "http://www.omdbapi.com/?t=" + searchName + "&y=&plot=short&apikey=trilogy";
     // Empty User Input
     if (searchName === "") {
         request("http://www.omdbapi.com/?t=Mr. Nobody&y=&plot=short&apikey=trilogy", function (error, response, body) {
@@ -120,7 +121,7 @@ function userTweet() {
 
 // Do what it says input
 function dwis() {
-    fs.readFile("random.txt", "utf8", function(error, data) {
+    fs.readFile("random.txt", "utf8", function (error, data) {
         if (error) {
             return console.log(error);
         }
@@ -131,11 +132,11 @@ function dwis() {
             case "spotify-this-song":
                 userSpotify();
                 break;
-        
+
             case "movie-this":
                 userMovie();
                 break;
-        
+
             case "my-tweets":
                 userTweet();
                 break;
