@@ -26,15 +26,29 @@ var queryUrl = "http://www.omdbapi.com/?t=" + searchName + "&y=&plot=short&apike
 
 // Spotify Request
 if (command === "spotify-this-song") {
-    spotify.search({ type: 'track', query: searchName }, function (err, data) {
-        if (err) {
-            return console.log('Error occurred: ' + err);
-        }
-        console.log("Artist(s): " + data.tracks.items[0].artists[0].name);
-        console.log("Song Name: " + data.tracks.items[0].name);
-        console.log("Preview Link: " + data.tracks.items[0].external_urls.spotify);
-        console.log("Album from: " + data.tracks.items[0].album.name);
-    });
+    if (searchName === "") {
+        spotify
+            .request('https://api.spotify.com/v1/tracks/3DYVWvPh3kGwPasp7yjahc')
+            .then(function (data) {
+                console.log("Artist(s): " + data.artists[0].name);
+                console.log("Song Name: " + data.name);
+                console.log("Preview Link: " + data.external_urls.spotify);
+                console.log("Album from: " + data.album.name);
+            })
+            .catch(function (err) {
+                console.error('Error occurred: ' + err);
+            });
+    } else {
+        spotify.search({ type: 'track', query: searchName }, function (err, data) {
+            if (err) {
+                return console.log('Error occurred: ' + err);
+            }
+            console.log("Artist(s): " + data.tracks.items[0].artists[0].name);
+            console.log("Song Name: " + data.tracks.items[0].name);
+            console.log("Preview Link: " + data.tracks.items[0].external_urls.spotify);
+            console.log("Album from: " + data.tracks.items[0].album.name);
+        });
+    }
 }
 
 // OMDB Request
