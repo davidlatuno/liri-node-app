@@ -25,12 +25,15 @@ for (var i = 3; i < process.argv.length; i++) {
 var queryUrl = "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=trilogy";
 
 // Spotify Request
-spotify.request("https://api.spotify.com/v1/tracks/7yCPwWs66K8Ba5lFuU2bcx").then(function(err, resp, body) {
+spotify.search({ type: 'track', query: 'All the Small Things' }, function (err, data) {
     if (err) {
-        return console.log (err);
+        return console.log('Error occurred: ' + err);
     }
-    console.log(body);
-})
+    console.log("Artist(s): " + data.tracks.items[0].artists[0].name);
+    console.log("Song Name: " + data.tracks.items[0].name);
+    console.log("Preview Link: " + data.tracks.items[0].external_urls.spotify);
+    console.log("Album from: " + data.tracks.items[0].album.name);
+});
 
 // OMDB Request
 if (command === "movie-this") {
