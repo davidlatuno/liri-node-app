@@ -24,8 +24,22 @@ for (var i = 3; i < process.argv.length; i++) {
 // OMDB url
 var queryUrl = "http://www.omdbapi.com/?t=" + searchName + "&y=&plot=short&apikey=trilogy";
 
+switch (command) {
+    case "spotify-this-song":
+        userSpotify();
+        break;
+
+    case "movie-this":
+        userMovie();
+        break;
+
+    case "my-tweets":
+        userTweet();
+        break;
+}
+
 // Spotify Request
-if (command === "spotify-this-song") {
+function userSpotify() {
     // Empty User input
     if (searchName === "") {
         spotify
@@ -54,7 +68,7 @@ if (command === "spotify-this-song") {
 }
 
 // OMDB Request
-if (command === "movie-this") {
+function userMovie() {
     // Empty User Input
     if (searchName === "") {
         request("http://www.omdbapi.com/?t=Mr. Nobody&y=&plot=short&apikey=trilogy", function (error, response, body) {
@@ -86,7 +100,7 @@ if (command === "movie-this") {
 }
 
 // Twitter Request
-if (command === "my-tweets") {
+function userTweet() {
     client.get('search/tweets', params, function searchedData(err, data, response) {
         if (err) {
             return console.log(err);
