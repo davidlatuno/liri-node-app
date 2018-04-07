@@ -60,10 +60,15 @@ function userSpotify() {
             if (err) {
                 return console.log('Error occurred: ' + err);
             }
-            console.log("Artist(s): " + data.tracks.items[0].artists[0].name);
-            console.log("Song Name: " + data.tracks.items[0].name);
-            console.log("Preview Link: " + data.tracks.items[0].external_urls.spotify);
-            console.log("Album from: " + data.tracks.items[0].album.name);
+            if (data.tracks.total === 0) {
+                console.log("Sorry, could not find any songs matching " + searchName);
+            } else {
+                console.log("Artist(s): " + data.tracks.items[0].artists[0].name);
+                console.log("Song Name: " + data.tracks.items[0].name);
+                console.log("Preview Link: " + data.tracks.items[0].external_urls.spotify);
+                console.log("Album from: " + data.tracks.items[0].album.name);
+            }
+
         });
     }
 }
