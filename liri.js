@@ -13,8 +13,7 @@ var command = process.argv[2];
 
 // Twitter search parameters
 var params = {
-    q: 'davidlatuno',
-    count: 20
+    screen_name: 'davidlatuno'
 }
 
 // Movie name code to handle multiple words
@@ -105,15 +104,17 @@ function userMovie() {
 
 // Twitter Request
 function userTweet() {
-    client.get('search/tweets', params, function searchedData(err, data, response) {
+    client.get('statuses/user_timeline', params, function searchedData(err, data, response) {
         if (err) {
             return console.log(err);
         }
-
-        for (var i = 0; i < data.statuses.length; i++) {
-            console.log(data.statuses[i].text);
-            console.log(data.statuses[i].created_at);
+        for (var i = 0; i < data.length; i++) {
+            console.log(data[i].text);
+            console.log(data[i].created_at);
             console.log("");
+            // console.log(data.statuses[i].text);
+            // console.log(data.statuses[i].created_at);
+            // console.log("");
         }
     });
 }
