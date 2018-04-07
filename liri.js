@@ -191,7 +191,11 @@ function history() {
         if (err) {
             return console.log(err);
         }
-        console.log("User History:" + data + "\n\n");
+        if (data === "") {
+            console.log("\nNothing to Show\n");
+        } else {
+            console.log("User History:" + data + "\n\n");
+        }
     })
 }
 
