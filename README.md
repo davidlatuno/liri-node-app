@@ -1,7 +1,7 @@
 # liri-node-app
 Use node.js to interact with Twitter, Spotify, and OMDB APIs
 
-###Liri can:
+### Liri can:
  - Print a user's tweets
  - Search spotify for song meta-data
  - Search OMDB for movie meta-data
