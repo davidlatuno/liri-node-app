@@ -18,10 +18,9 @@ var params = {
 }
 
 // Movie name code to handle multiple words
-var searchName = '';
-for (var i = 3; i < process.argv.length; i++) {
-    searchName += (process.argv[i]) + " ";
-}
+var userArr = process.argv;
+userArr.splice(0, 3);
+var searchName = userArr.join(" ");
 
 switch (command) {
     case "spotify-this-song":
