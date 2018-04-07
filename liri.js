@@ -34,6 +34,10 @@ switch (command) {
         userTweet();
         break;
 
+    case "history":
+        history();
+        break;
+
     case "do-what-it-says":
         dwis();
         break;
@@ -41,7 +45,7 @@ switch (command) {
 
 // Spotify Request
 function userSpotify() {
-    fs.appendFile("log.txt", "\n\nSpotify Search:", function(err) {
+    fs.appendFile("log.txt", "\n\nSpotify Search:", function (err) {
         if (err) {
             console.log(err);
         }
@@ -55,10 +59,10 @@ function userSpotify() {
                 console.log("Song Name: " + data.name);
                 console.log("Preview Link: " + data.external_urls.spotify);
                 console.log("Album from: " + data.album.name);
-                fs.appendFile("log.txt", `\n\nArtists(s): ${data.artists[0].name}\nSong Name: ${data.name}\nPreview Link: ${data.external_urls.spotify}\nAlbum from: ${data.album.name}`, function(err){
+                fs.appendFile("log.txt", `\n\nArtists(s): ${data.artists[0].name}\nSong Name: ${data.name}\nPreview Link: ${data.external_urls.spotify}\nAlbum from: ${data.album.name}`, function (err) {
                     if (err) {
                         console.log(err);
-                      }
+                    }
                 })
             })
             .catch(function (err) {
@@ -72,7 +76,7 @@ function userSpotify() {
             }
             if (data.tracks.total === 0) {
                 console.log("Sorry, could not find any songs matching " + searchName);
-                fs.appendFile("log.txt", `\n\nSorry, could not find any songs matching ${searchName}`, function(err) {
+                fs.appendFile("log.txt", `\n\nSorry, could not find any songs matching ${searchName}`, function (err) {
                     if (err) {
                         console.log(err);
                     }
@@ -84,10 +88,10 @@ function userSpotify() {
                     console.log("Preview Link: " + data.tracks.items[i].external_urls.spotify);
                     console.log("Album from: " + data.tracks.items[i].album.name);
                     console.log("");
-                    fs.appendFile("log.txt", `\n\nArtists(s): ${data.tracks.items[i].artists[0].name}\nSong Name: ${data.tracks.items[i].name}\nPreview Link: ${data.tracks.items[i].external_urls.spotify}\nAlbum from: ${data.tracks.items[i].album.name}`, function(err){
+                    fs.appendFile("log.txt", `\n\nArtists(s): ${data.tracks.items[i].artists[0].name}\nSong Name: ${data.tracks.items[i].name}\nPreview Link: ${data.tracks.items[i].external_urls.spotify}\nAlbum from: ${data.tracks.items[i].album.name}`, function (err) {
                         if (err) {
                             console.log(err);
-                          }
+                        }
                     })
                 }
             }
@@ -99,7 +103,7 @@ function userSpotify() {
 function userMovie() {
     // OMDB url
     var queryUrl = "http://www.omdbapi.com/?t=" + searchName + "&y=&plot=short&apikey=trilogy";
-    fs.appendFile("log.txt", "\n\nMovie Search:", function(err) {
+    fs.appendFile("log.txt", "\n\nMovie Search:", function (err) {
         if (err) {
             console.log(err);
         }
@@ -117,7 +121,7 @@ function userMovie() {
                 console.log("Language(s): " + result.Language);
                 console.log("Plot: " + result.Plot);
                 console.log("Actors: " + result.Actors);
-                fs.appendFile("log.txt", `\n\nTitle: ${result.Title}\nYear: ${result.Year}\n${result.Ratings[0].Source}: ${result.Ratings[0].Value}\n${result.Ratings[1].Source}: ${result.Ratings[1].Value}\nCountry: ${result.Country}\nLanguage(s): ${result.Language}\nPlot: ${result.Plot}\nActors: ${result.Actors}`, function(err) {
+                fs.appendFile("log.txt", `\n\nTitle: ${result.Title}\nYear: ${result.Year}\n${result.Ratings[0].Source}: ${result.Ratings[0].Value}\n${result.Ratings[1].Source}: ${result.Ratings[1].Value}\nCountry: ${result.Country}\nLanguage(s): ${result.Language}\nPlot: ${result.Plot}\nActors: ${result.Actors}`, function (err) {
                     if (err) {
                         console.log(err);
                     }
@@ -129,7 +133,7 @@ function userMovie() {
             if (!error && response.statusCode === 200) {
                 if (JSON.parse(body).Error === "Movie not found!") {
                     console.log("Movie not found");
-                    fs.appendFile("log.txt", "\n\nMovie not found!", function(err) {
+                    fs.appendFile("log.txt", "\n\nMovie not found!", function (err) {
                         if (err) {
                             console.log(err);
                         }
@@ -144,7 +148,7 @@ function userMovie() {
                     console.log("Language(s): " + result.Language);
                     console.log("Plot: " + result.Plot);
                     console.log("Actors: " + result.Actors);
-                    fs.appendFile("log.txt", `\n\nTitle: ${result.Title}\nYear: ${result.Year}\n${result.Ratings[0].Source}: ${result.Ratings[0].Value}\n${result.Ratings[1].Source}: ${result.Ratings[1].Value}\nCountry: ${result.Country}\nLanguage(s): ${result.Language}\nPlot: ${result.Plot}\nActors: ${result.Actors}`, function(err) {
+                    fs.appendFile("log.txt", `\n\nTitle: ${result.Title}\nYear: ${result.Year}\n${result.Ratings[0].Source}: ${result.Ratings[0].Value}\n${result.Ratings[1].Source}: ${result.Ratings[1].Value}\nCountry: ${result.Country}\nLanguage(s): ${result.Language}\nPlot: ${result.Plot}\nActors: ${result.Actors}`, function (err) {
                         if (err) {
                             console.log(err);
                         }
@@ -163,22 +167,32 @@ function userTweet() {
         if (err) {
             return console.log(err);
         }
-        fs.appendFile("log.txt", "\n\nTweets:", function(err){
+        fs.appendFile("log.txt", "\n\nTweets:", function (err) {
             if (err) {
                 console.log(err);
-              }
+            }
         })
         for (var i = 0; i < data.length; i++) {
             console.log(data[i].text);
             console.log(data[i].created_at);
             console.log("");
-            fs.appendFile("log.txt", `\n\n${data[i].text}\n${data[i].created_at}`, function(err){
+            fs.appendFile("log.txt", `\n\n${data[i].text}\n${data[i].created_at}`, function (err) {
                 if (err) {
                     console.log(err);
-                  }
+                }
             })
         }
     });
+}
+
+// History Function
+function history() {
+    fs.readFile("log.txt", "utf8", function (err, data) {
+        if (err) {
+            return console.log(err);
+        }
+        console.log("User History:" + data + "\n\n");
+    })
 }
 
 // Do what it says input
@@ -201,6 +215,10 @@ function dwis() {
 
             case "my-tweets":
                 userTweet();
+                break;
+
+            case "history":
+                history();
                 break;
         }
     })
