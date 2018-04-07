@@ -99,18 +99,29 @@ function userSpotify() {
 function userMovie() {
     // OMDB url
     var queryUrl = "http://www.omdbapi.com/?t=" + searchName + "&y=&plot=short&apikey=trilogy";
+    fs.appendFile("log.txt", "\n\nMovie Search:", function(err) {
+        if (err) {
+            console.log(err);
+        }
+    })
     // Empty User Input
     if (searchName === "") {
         request("http://www.omdbapi.com/?t=Mr. Nobody&y=&plot=short&apikey=trilogy", function (error, response, body) {
             if (!error && response.statusCode === 200) {
-                console.log("Title: " + JSON.parse(body).Title);
-                console.log("Year: " + JSON.parse(body).Year);
-                console.log(`${JSON.parse(body).Ratings[0].Source}: ${JSON.parse(body).Ratings[0].Value}`);
-                console.log(`${JSON.parse(body).Ratings[1].Source}: ${JSON.parse(body).Ratings[1].Value}`);
-                console.log("Country: " + JSON.parse(body).Country);
-                console.log("Language(s): " + JSON.parse(body).Language);
-                console.log("Plot: " + JSON.parse(body).Plot);
-                console.log("Actors: " + JSON.parse(body).Actors);
+                var result = JSON.parse(body)
+                console.log("Title: " + result.Title);
+                console.log("Year: " + result.Year);
+                console.log(`${result.Ratings[0].Source}: ${result.Ratings[0].Value}`);
+                console.log(`${result.Ratings[1].Source}: ${result.Ratings[1].Value}`);
+                console.log("Country: " + result.Country);
+                console.log("Language(s): " + result.Language);
+                console.log("Plot: " + result.Plot);
+                console.log("Actors: " + result.Actors);
+                fs.appendFile("log.txt", `\n\nTitle: ${result.Title}\nYear: ${result.Year}\n${result.Ratings[0].Source}: ${result.Ratings[0].Value}\n${result.Ratings[1].Source}: ${result.Ratings[1].Value}\nCountry: ${result.Country}\nLanguage(s): ${result.Language}\nPlot: ${result.Plot}\nActors: ${result.Actors}`, function(err) {
+                    if (err) {
+                        console.log(err);
+                    }
+                })
             }
         })
     } else {
@@ -118,15 +129,26 @@ function userMovie() {
             if (!error && response.statusCode === 200) {
                 if (JSON.parse(body).Error === "Movie not found!") {
                     console.log("Movie not found");
+                    fs.appendFile("log.txt", "\n\nMovie not found!", function(err) {
+                        if (err) {
+                            console.log(err);
+                        }
+                    })
                 } else {
-                    console.log("Title: " + JSON.parse(body).Title);
-                    console.log("Year: " + JSON.parse(body).Year);
-                    console.log(`${JSON.parse(body).Ratings[0].Source}: ${JSON.parse(body).Ratings[0].Value}`);
-                    console.log(`${JSON.parse(body).Ratings[1].Source}: ${JSON.parse(body).Ratings[1].Value}`);
-                    console.log("Country: " + JSON.parse(body).Country);
-                    console.log("Language(s): " + JSON.parse(body).Language);
-                    console.log("Plot: " + JSON.parse(body).Plot);
-                    console.log("Actors: " + JSON.parse(body).Actors);
+                    var result = JSON.parse(body);
+                    console.log("Title: " + result.Title);
+                    console.log("Year: " + result.Year);
+                    console.log(`${result.Ratings[0].Source}: ${result.Ratings[0].Value}`);
+                    console.log(`${result.Ratings[1].Source}: ${result.Ratings[1].Value}`);
+                    console.log("Country: " + result.Country);
+                    console.log("Language(s): " + result.Language);
+                    console.log("Plot: " + result.Plot);
+                    console.log("Actors: " + result.Actors);
+                    fs.appendFile("log.txt", `\n\nTitle: ${result.Title}\nYear: ${result.Year}\n${result.Ratings[0].Source}: ${result.Ratings[0].Value}\n${result.Ratings[1].Source}: ${result.Ratings[1].Value}\nCountry: ${result.Country}\nLanguage(s): ${result.Language}\nPlot: ${result.Plot}\nActors: ${result.Actors}`, function(err) {
+                        if (err) {
+                            console.log(err);
+                        }
+                    })
                 }
             } else {
                 console.log("Something went wrong");
