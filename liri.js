@@ -101,6 +101,8 @@ function userMovie() {
                     console.log("Plot: " + JSON.parse(body).Plot);
                     console.log("Actors: " + JSON.parse(body).Actors);
                 }
+            } else {
+                console.log("Something went wrong");
             }
         })
     }
