@@ -62,8 +62,11 @@ function userSpotify() {
                 console.log("Song Name: " + data.name);
                 console.log("Preview Link: " + data.external_urls.spotify);
                 console.log("Album from: " + data.album.name);
+
                 // Append info to log.txt
-                fs.appendFile("log.txt", `\n\nArtists(s): ${data.artists[0].name}\nSong Name: ${data.name}\nPreview Link: ${data.external_urls.spotify}\nAlbum from: ${data.album.name}`, function (err) {
+                var noSong = `\n\nArtists(s): ${data.artists[0].name}\nSong Name: ${data.name}\nPreview Link: ${data.external_urls.spotify}\nAlbum from: ${data.album.name}`;
+                
+                fs.appendFile("log.txt", noSong, function (err) {
                     if (err) {
                         console.log(err);
                     }
@@ -95,7 +98,9 @@ function userSpotify() {
                     console.log("Album from: " + data.tracks.items[i].album.name);
                     console.log("");
                     // Append info to log.txt
-                    fs.appendFile("log.txt", `\n\nArtists(s): ${data.tracks.items[i].artists[0].name}\nSong Name: ${data.tracks.items[i].name}\nPreview Link: ${data.tracks.items[i].external_urls.spotify}\nAlbum from: ${data.tracks.items[i].album.name}`, function (err) {
+                    var userSong = `\n\nArtists(s): ${data.tracks.items[i].artists[0].name}\nSong Name: ${data.tracks.items[i].name}\nPreview Link: ${data.tracks.items[i].external_urls.spotify}\nAlbum from: ${data.tracks.items[i].album.name}`
+
+                    fs.appendFile("log.txt", userSong, function (err) {
                         if (err) {
                             console.log(err);
                         }
@@ -130,8 +135,11 @@ function userMovie() {
                 console.log("Language(s): " + result.Language);
                 console.log("Plot: " + result.Plot);
                 console.log("Actors: " + result.Actors);
+
                 // Append info to log.txt
-                fs.appendFile("log.txt", `\n\nTitle: ${result.Title}\nYear: ${result.Year}\n${result.Ratings[0].Source}: ${result.Ratings[0].Value}\n${result.Ratings[1].Source}: ${result.Ratings[1].Value}\nCountry: ${result.Country}\nLanguage(s): ${result.Language}\nPlot: ${result.Plot}\nActors: ${result.Actors}`, function (err) {
+                var mrNobody = `\n\nTitle: ${result.Title}\nYear: ${result.Year}\n${result.Ratings[0].Source}: ${result.Ratings[0].Value}\n${result.Ratings[1].Source}: ${result.Ratings[1].Value}\nCountry: ${result.Country}\nLanguage(s): ${result.Language}\nPlot: ${result.Plot}\nActors: ${result.Actors}`;
+
+                fs.appendFile("log.txt", mrNobody, function (err) {
                     if (err) {
                         console.log(err);
                     }
@@ -160,8 +168,11 @@ function userMovie() {
                     console.log("Language(s): " + result.Language);
                     console.log("Plot: " + result.Plot);
                     console.log("Actors: " + result.Actors);
+
                     // Append info to log.txt
-                    fs.appendFile("log.txt", `\n\nTitle: ${result.Title}\nYear: ${result.Year}\n${result.Ratings[0].Source}: ${result.Ratings[0].Value}\n${result.Ratings[1].Source}: ${result.Ratings[1].Value}\nCountry: ${result.Country}\nLanguage(s): ${result.Language}\nPlot: ${result.Plot}\nActors: ${result.Actors}`, function (err) {
+                    var userMovieInfo = `\n\nTitle: ${result.Title}\nYear: ${result.Year}\n${result.Ratings[0].Source}: ${result.Ratings[0].Value}\n${result.Ratings[1].Source}: ${result.Ratings[1].Value}\nCountry: ${result.Country}\nLanguage(s): ${result.Language}\nPlot: ${result.Plot}\nActors: ${result.Actors}`;
+
+                    fs.appendFile("log.txt", userMovieInfo, function (err) {
                         if (err) {
                             console.log(err);
                         }
@@ -191,6 +202,7 @@ function userTweet() {
             console.log(data[i].text);
             console.log(data[i].created_at);
             console.log("");
+            
             // Append info to log.txt
             fs.appendFile("log.txt", `\n\n${data[i].text}\n${data[i].created_at}`, function (err) {
                 if (err) {
